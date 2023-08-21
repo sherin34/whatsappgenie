@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Messaging</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+    .fa-whatsapp,.fa-phone {
+    font-size: 27px; /* Adjust the size as needed */
+}
+</style>
+<body>
+    <div class="container mt-5">
+        <h1>WhatsApp Messaging</h1>
+        <form enctype="multipart/form-data" action="/upload" method="POST">
+            <div class="form-group">
+                <label for="inputFile">Upload Excel File</label>
+                <input type="file" class="form-control-file" id="inputFile" name="excelFile">
+            </div>
+            <div class="form-row">
+                <!-- ... (rest of the dropdowns) ... -->
+            </div>
+            <button type="submit" class="btn btn-primary">Load Data</button>
+        </form>
+    </div>
+    <div class="container mt-5">
+    {{!-- <h1>{{ title }}</h1> --}}
+    <form action="/submit" method="POST">
+        {{!-- <div class="form-group">
+            <label for="inputRo">Ro</label>
+            <select id="inputRo" class="form-control" name="ro">
+                <option value="" selected>Select Ro...</option>
+                {{#each uniqueValues.ro}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+        </div> --}}
+        <div class="form-group">
+            <label for="inputBranch">Branch</label>
+            <select id="inputBranch" class="form-control" name="branch">
+                <option value="" selected>Select Branch...</option>
+                {{#each uniqueValues.branch}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="inputProduct">Product</label>
+            <select id="inputProduct" class="form-control" name="product">
+                <option value="" selected>Select Product...</option>
+                {{#each uniqueValues.product}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div id="resultTable" class="mt-5">
+        <!-- Table will be displayed here upon submission -->
+        <div id="resultTable" class="mt-5">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">NAME</th>
+                <th scope="col">CIF ID</th>
+                <th scope="col">AMOUNT</th>
+                <th scope="col">EMI</th>
+                <th scope="col">CALL</th>
+                <th scope="col">WHATSAPP</th>
+               
+                <!-- ... (other headers) ... -->
+            </tr>
+        </thead>
+        <tbody>
+            {{#each filteredData}}
+                <tr>
+                    <td>{{this.customer_name}}</td>
+                    <td>{{this.customer_cif}}</td>
+                    <td>{{this.amount}}</td>
+                    <td>{{this.emi}}</td>
+                    <td>
+    <a href="tel:{{this.customer_phone}}">
+        <i class="fas fa-phone"></i> 
+    </a>
+</td>
+
+                   <td>
+    <a href="https://wa.me/{{this.customer_phone}}?text=Hello%20{{this.customer_name}},%20we%20have%20an%20exciting%20offer%20for%20you!%0AIf%20you%20choose%20our%20{{this.product}},%20you%20can%20avail%20an%20amount%20of%20RS%3A%20{{this.amount}}.%0AYour%20monthly%20EMI%20will%20be%20RS%3A%20{{this.emi}}.%0ADon't%20miss%20out%20on%20this%20opportunity.%20Contact%20us%20at%207012619446%20for%20more%20details." target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</td>
+
+                    <!-- ... (other columns) ... -->
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+    </div>
+</div>
+
+    <!-- Add Bootstrap JS and jQuery scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
